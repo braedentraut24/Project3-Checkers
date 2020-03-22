@@ -24,7 +24,7 @@ namespace Project3_Checkers
                     hiddenBoard[row, col] = new SpaceClass(row, col);
 
                     //Sets each piece as "black" or "not black" for 2 reasons
-                    //1 is so we can initialize the pieces (pieces always start on black sqaures)
+                    //1 is so we can initialize the pieces (pieces always start on black squares)
                     //2 is so we can stylize the board easier
                     if ((row % 2 == 0 && col % 2 == 0) || (row % 2 == 1 && col % 2 == 1))
                     {
@@ -56,12 +56,10 @@ namespace Project3_Checkers
                 {
                     if (hiddenBoard[row, col].getIsBlack())
                     {
-                        hiddenBoard[row, col].setPiece(new PieceClass(true));
+                        hiddenBoard[row, col].setPiece(new PieceClass(false));
                     }
                 }
             }
-
-
         }
     }
 }
