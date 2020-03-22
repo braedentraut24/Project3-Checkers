@@ -103,6 +103,7 @@ namespace Project3_Checkers
             return validEntries;
         }
 
+
         private void createTable()
         {
             int ButtonWidth = 40;
@@ -111,26 +112,31 @@ namespace Project3_Checkers
             int start_x = 10;
             int start_y = 10;
 
-            for (int x = 0; x < 8; x++)
+            for (int row = 0; row < 8; row++)
             {
-                for (int y = 0; y < 8; y++)
+                for (int col = 0; col < 8; col++)
                 {
-                    Button tmpButton = new Button();
-                    tmpButton.Top = start_x + (x * ButtonHeight + Distance);
-                    tmpButton.Left = start_y + (y * ButtonWidth + Distance);
-                    tmpButton.Width = ButtonWidth;
-                    tmpButton.Height = ButtonHeight;
-                    tmpButton.Text = "X: " + x.ToString() + " Y: " + y.ToString();
-                    tmpButton.Font = new Font("Arial", 8);
+                    newCell[row, col] = new Button();
+                    newCell[row, col].Top = start_x + (row * ButtonHeight + Distance);
+                    newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
+                    newCell[row, col].Width = ButtonWidth;
+                    newCell[row, col].Height = ButtonHeight;
+                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    newCell[row, col].Font = new Font("Arial", 8);
+                    newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     // Possible add Buttonclick event etc..
-                    this.Controls.Add(tmpButton);
+                    newCell[row, col].Click += new EventHandler(Button_Click);
+                    this.Controls.Add(newCell[row, col]);
                 }
             }
         }
 
         private void Button_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            int rowID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[3]));
+            int colID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[4]));
+
+            MessageBox.Show(((Button)sender).Name.ToString());
         }
     }
 }
