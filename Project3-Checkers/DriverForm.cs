@@ -14,6 +14,7 @@ namespace Project3_Checkers
     {
 
         Button[,] newCell = new Button[8, 8];
+        InternalBoardClass internalBoard = new InternalBoardClass();
 
         /// <summary>
         /// Initializes the form.
@@ -137,6 +138,12 @@ namespace Project3_Checkers
             int colID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[4]));
 
             MessageBox.Show(((Button)sender).Name.ToString());
+        }
+
+        private void refreshBoard()
+        {
+            //TODO: Go through the internal board and put the visuals for the pieces in the correct spots.
+            //To be called after each turn
         }
     }
 }

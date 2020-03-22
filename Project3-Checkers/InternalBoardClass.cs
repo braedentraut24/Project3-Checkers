@@ -16,6 +16,7 @@ namespace Project3_Checkers
         {
             this.hiddenBoard = new SpaceClass[10, 10];
 
+            //Initializing spaces on the board
             for (int row = 1; row < 9; row++)
             {
                 for (int col = 1; col < 9; col++)
