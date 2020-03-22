@@ -46,16 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmWelcome.cs">
+    <Compile Include="DriverForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmWelcome.Designer.cs">
-      <DependentUpon>frmWelcome.cs</DependentUpon>
+    <Compile Include="DriverForm.Designer.cs">
+      <DependentUpon>DriverForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmWelcome.resx">
-      <DependentUpon>frmWelcome.cs</DependentUpon>
+    <EmbeddedResource Include="DriverForm.resx">
+      <DependentUpon>DriverForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

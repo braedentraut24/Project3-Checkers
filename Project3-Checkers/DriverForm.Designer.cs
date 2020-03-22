@@ -1,6 +1,6 @@
 ﻿namespace Project3_Checkers
 {
-    partial class frmWelcome
+    partial class DriverForm
     {
         /// <summary>
         /// Required designer variable.
@@ -191,11 +191,11 @@
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // frmWelcome
+            // DriverForm
             // 
             this.AcceptButton = this.btnPlay;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(782, 425);
             this.Controls.Add(this.btnExit);
@@ -214,9 +214,9 @@
             this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Constantia", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "frmWelcome";
+            this.Name = "DriverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Checkers in C#";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -16,7 +16,7 @@ namespace Project3_Checkers
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmWelcome());
+            Application.Run(new DriverForm());
         }
     }
 }
