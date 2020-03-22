@@ -11,11 +11,14 @@ namespace Project3_Checkers
         
         private int col, row;   //references where on the board the space is
         private PieceClass currentPiece;    //the piece that is on this space
+        private Boolean isBlack;
 
         public SpaceClass(int row, int col)
         {
-            this.row = row;
-            this.col = col;
+            //We subtract these by 1 because in the board class these values are naturally
+            //1 integer higher because of how the array is 10x10
+            this.row = row - 1;
+            this.col = col - 1;
         }
 
         public PieceClass getPiece()
@@ -42,6 +45,28 @@ namespace Project3_Checkers
         public int getRow()
         {
             return this.row;
+        }
+
+        public Boolean getIsBlack()
+        {
+            return this.isBlack;
+        }
+
+        public void setIsBlack(Boolean isBlack)
+        {
+            this.isBlack = isBlack;
+        }
+
+        public Boolean hasPiece()
+        {
+            if (currentPiece == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
