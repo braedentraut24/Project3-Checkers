@@ -15,6 +15,8 @@ namespace Project3_Checkers
 
         Button[,] newCell = new Button[8, 8];
         InternalBoardClass internalBoard = new InternalBoardClass();
+        PlayerClass p1;
+        PlayerClass p2;
 
         /// <summary>
         /// Initializes the form.
@@ -40,8 +42,8 @@ namespace Project3_Checkers
         {
             if (validateEntries() == true)
             {
-                Player p1 = new Player(txtP1Name.Text, Convert.ToChar(txtP1Char.Text));
-                Player p2 = new Player(txtP2Name.Text, Convert.ToChar(txtP2Char.Text));
+                p1 = new PlayerClass(txtP1Name.Text, Convert.ToChar(txtP1Char.Text));
+                p2 = new PlayerClass(txtP2Name.Text, Convert.ToChar(txtP2Char.Text));
                 this.Controls.Clear();
                 createTable();
             }
@@ -107,12 +109,14 @@ namespace Project3_Checkers
 
         private void createTable()
         {
-            int ButtonWidth = 40;
-            int ButtonHeight = 40;
+            int ButtonWidth = 60;
+            int ButtonHeight = 60;
             int Distance = 20;
             int start_x = 10;
             int start_y = 10;
+            this.Size = new Size(550, 575);
 
+            // Draw Buttons on screen as well as name and create EventHandler
             for (int row = 0; row < 8; row++)
             {
                 for (int col = 0; col < 8; col++)
@@ -122,14 +126,51 @@ namespace Project3_Checkers
                     newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
-                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    //newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
                     newCell[row, col].Font = new Font("Arial", 8);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
-                    // Possible add Buttonclick event etc..
                     newCell[row, col].Click += new EventHandler(Button_Click);
                     this.Controls.Add(newCell[row, col]);
                 }
             }
+
+            // Color the buttons in a checker pattern
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if (row % 2 == 0)
+                    {
+                        if (col % 2 == 0)
+                        {
+                            newCell[row, col].BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            newCell[row, col].BackColor = Color.Black;
+                        }
+                    }
+                    else
+                    {
+                        if (col % 2 == 0)
+                        {
+                            newCell[row, col].BackColor = Color.Black;
+                        }
+                        else
+                        {
+                            newCell[row, col].BackColor = Color.Red;
+                        }
+                    }
+                }
+            }
+
+            // Draw label that will indicate which player is up for their turn.
+            Label lblPlayerIndicator = new Label();
+            lblPlayerIndicator.AutoSize = true;
+            lblPlayerIndicator.Font = new Font("Arial", 12);
+            lblPlayerIndicator.Location = new Point(0, 0);
+            lblPlayerIndicator.Text = "Current Player: " + p1.name;
+            this.Controls.Add(lblPlayerIndicator);
         }
 
         private void Button_Click(object sender, EventArgs e)

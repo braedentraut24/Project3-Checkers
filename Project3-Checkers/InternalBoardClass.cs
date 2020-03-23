@@ -9,8 +9,6 @@ namespace Project3_Checkers
     class InternalBoardClass
     {
         private SpaceClass[,] hiddenBoard;
-        private SpaceClass rightPath;
-        private SpaceClass leftPath;
 
         public InternalBoardClass()
         {
@@ -60,6 +58,47 @@ namespace Project3_Checkers
                     }
                 }
             }
+        }   //End constructor
+
+
+        public Boolean validPiece(int row, int col, Boolean isPlayer1)
+        {
+            if (hiddenBoard[row + 1, col + 1].hasPiece() && hiddenBoard[row + 1, col + 1].getPiece().getIsPlayerOne() == isPlayer1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Boolean validMove(SpaceClass moveTo, SpaceClass moveFrom, Boolean isPlayer1)
+        {
+            //Cant move to a space with a piece on it
+            if (moveTo.hasPiece())
+            {
+                return false;
+            }
+
+            //These 2 else ifs are to prevent the pieces from going backwards
+            else if (isPlayer1 && moveTo.getInternalRow() < moveFrom.getInternalRow())
+            {
+                return false;
+            }
+
+            else if (!isPlayer1 && moveTo.getInternalRow() > moveFrom.getInternalRow())
+            {
+                return false;
+            }
+
+            return true;    //This is temprorary to get rid of errors. Method not finished
+
+        }
+
+        public void movePiece(SpaceClass moveTo, SpaceClass MoveFrom)
+        {
+            //TODO
         }
     }
 }

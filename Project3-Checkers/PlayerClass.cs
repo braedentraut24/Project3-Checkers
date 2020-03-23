@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Project3_Checkers
 {
-    class Player
+    class PlayerClass
     {
 
         // START ATTRIBUTES
@@ -50,7 +50,7 @@ namespace Project3_Checkers
         /// </summary>
         /// <param name="name"> Player's name </param>
         /// <param name="piece"> Character to represent player's pieces </param>
-        public Player(string name, char piece)
+        public PlayerClass(string name, char piece)
         {
             hiddenName = name;
             hiddenPieceChar = piece;
