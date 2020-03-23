@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="InternalBoardClass.cs" />
     <Compile Include="PieceClass.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="PlayerClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpaceClass.cs" />

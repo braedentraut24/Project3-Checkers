@@ -83,7 +83,7 @@
             this.lblHorizBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblHorizBar.Location = new System.Drawing.Point(0, 87);
             this.lblHorizBar.Name = "lblHorizBar";
-            this.lblHorizBar.Size = new System.Drawing.Size(2000, 2);
+            this.lblHorizBar.Size = new System.Drawing.Size(800, 2);
             this.lblHorizBar.TabIndex = 2;
             // 
             // lblP1Name
@@ -195,7 +195,6 @@
             // 
             this.AcceptButton = this.btnPlay;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(782, 425);
             this.Controls.Add(this.btnExit);

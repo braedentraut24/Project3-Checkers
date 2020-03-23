@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace Project3_Checkers
 {
-    class Player
+    class PlayerClass
     {
 
         // START ATTRIBUTES
-        private int hiddenNumOfPieces;  // Number of pieces player has remaining on the board
+        private int hiddenNumOfPieces;        // Number of pieces player has remaining on the board
         public string hiddenName;             // Player's Name
         public char hiddenPieceChar;          // Character to represent the player's pieces on the board
         // END ATTRIBUTES
@@ -50,7 +50,7 @@ namespace Project3_Checkers
         /// </summary>
         /// <param name="name"> Player's name </param>
         /// <param name="piece"> Character to represent player's pieces </param>
-        public Player(string name, char piece)
+        public PlayerClass(string name, char piece)
         {
             hiddenName = name;
             hiddenPieceChar = piece;
