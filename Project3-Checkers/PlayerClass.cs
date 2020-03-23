@@ -11,7 +11,7 @@ namespace Project3_Checkers
     {
 
         // START ATTRIBUTES
-        private int hiddenNumOfPieces;  // Number of pieces player has remaining on the board
+        private int hiddenNumOfPieces;        // Number of pieces player has remaining on the board
         public string hiddenName;             // Player's Name
         public char hiddenPieceChar;          // Character to represent the player's pieces on the board
         // END ATTRIBUTES
