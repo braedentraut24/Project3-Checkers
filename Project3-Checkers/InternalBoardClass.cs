@@ -20,6 +20,8 @@ namespace Project3_Checkers
     class InternalBoardClass
     {
         private SpaceClass[,] hiddenBoard;      // 2D Array representation of the table / board
+        private SpaceClass capturedSpace;   //reference to a space with a piece that got captured during a move. is null if no capturing happened
+        private PlayerClass curPlayer;      //Reference to the player whos turn it is
 
         /// <summary>
         /// Parameterless Constructor - Creates an 8x8 board and 
@@ -28,6 +30,7 @@ namespace Project3_Checkers
         public InternalBoardClass()
         {
             this.hiddenBoard = new SpaceClass[8, 8];
+            this.curPlayer = DriverForm.p1;
 
             //Initializing spaces on the board
             for (int row = 0; row < 8; row++)
@@ -75,6 +78,20 @@ namespace Project3_Checkers
             }
         }   //End constructor
 
+        //Switches the current player from one to the other
+        //Should be called after each turn
+        public void switchCurPlayer()
+        {
+            if (curPlayer == DriverForm.p1)
+            {
+                curPlayer = DriverForm.p2;
+            }
+            else if (curPlayer == DriverForm.p2)
+            {
+                curPlayer = DriverForm.p1;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -82,7 +99,7 @@ namespace Project3_Checkers
         /// <param name="col"></param>
         /// <param name="curPlayer"></param>
         /// <returns></returns>
-        public Boolean isValidPiece(int row, int col, PlayerClass curPlayer)
+        public Boolean isValidPiece(int row, int col)
         {
             if (hiddenBoard[row, col].hasPiece() && hiddenBoard[row, col].getPiece().getPlayer() == curPlayer)
             {
@@ -102,8 +119,9 @@ namespace Project3_Checkers
         /// <param name="moveFrom"> Space on board where the player is moving from </param>
         /// <param name="curPlayer"> The player currently moving their piece </param>
         /// <returns></returns>
-        public Boolean isValidMove(SpaceClass moveTo, SpaceClass moveFrom, PlayerClass curPlayer)
+        public Boolean isValidMove(SpaceClass moveTo, SpaceClass moveFrom)
         {
+            capturedSpace = null;
             //Cant move to a space with a piece on it
             if (moveTo.hasPiece())
             {
@@ -127,9 +145,53 @@ namespace Project3_Checkers
                 return true;
             }
 
-            //TODO: Write the code for jumping a piece
-            
-            return false;   //Temprorary to prevent errors
+            //This would be a valid "jump" move
+            else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 2) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 2))
+            {
+                if (curPlayer == DriverForm.p1)
+                {
+                    if (moveFrom.getCol() < moveTo.getCol() && hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1].hasPiece())
+                    {
+                        if (hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1].getPiece().getPlayer() == DriverForm.p2)
+                        {
+                            capturedSpace = hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1];
+                            return true;
+                        }
+                    }
+
+                    else if (moveFrom.getCol() > moveTo.getCol() && hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1].hasPiece())
+                    {
+                        if (hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1].getPiece().getPlayer() == DriverForm.p2)
+                        {
+                            capturedSpace = hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1];
+                            return true;
+                        }
+                    }
+                }
+
+                else if (curPlayer == DriverForm.p2)
+                {
+                     if (moveFrom.getCol() < moveTo.getCol() && hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1].hasPiece())
+                    {
+                        if (hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1].getPiece().getPlayer() == DriverForm.p1)
+                        {
+                            capturedSpace = hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1];
+                            return true;
+                        }
+                    }
+
+                    else if (moveFrom.getCol() > moveTo.getCol() && hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1].hasPiece())
+                    {
+                        if (hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1].getPiece().getPlayer() == DriverForm.p1)
+                        {
+                            capturedSpace = hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1];
+                            return true;
+                        }
+                    }   //End jump move code
+                }
+            }
+
+            return false;
 
             //TODO: Write the code for king pieces moving
             
@@ -142,7 +204,22 @@ namespace Project3_Checkers
         /// <param name="moveFrom"> Space on board where the player is moving from </param>
         public void movePiece(SpaceClass moveTo, SpaceClass moveFrom)
         {
-            //TODO set the location of the piece at moveFrom to moveTo
+            moveTo.setPiece(moveFrom.getPiece());
+            moveFrom.setPiece(null);
+
+            //Takes away from the correct player's pieceCount if a capture happened
+            if (capturedSpace != null)
+            {
+                capturedSpace.setPiece(null);
+                if (curPlayer == DriverForm.p1)
+                {
+                    DriverForm.p2.lostPiece(true);
+                }
+                else if (curPlayer == DriverForm.p2)
+                {
+                    DriverForm.p1.lostPiece(true);
+                }
+            }
         }
     }
 }
