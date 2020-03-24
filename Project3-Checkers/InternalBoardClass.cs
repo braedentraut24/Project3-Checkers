@@ -12,12 +12,12 @@ namespace Project3_Checkers
 
         public InternalBoardClass()
         {
-            this.hiddenBoard = new SpaceClass[10, 10];
+            this.hiddenBoard = new SpaceClass[8, 8];
 
             //Initializing spaces on the board
-            for (int row = 1; row < 9; row++)
+            for (int row = 0; row < 8; row++)
             {
-                for (int col = 1; col < 9; col++)
+                for (int col = 0; col < 8; col++)
                 {
                     hiddenBoard[row, col] = new SpaceClass(row, col);
 
@@ -36,9 +36,9 @@ namespace Project3_Checkers
             }
 
             //Initializing the starting pieces for player 1
-            for(int row = 1; row < 4; row++)
+            for(int row = 0; row < 3; row++)
             {
-                for (int col = 1; col < 9; col++)
+                for (int col = 0; col < 8; col++)
                 {
                     if (hiddenBoard[row,col].getIsBlack())
                     {
@@ -48,9 +48,9 @@ namespace Project3_Checkers
             }
 
             //Starting pieces for player 2
-            for (int row = 8; row > 5; row--)
+            for (int row = 7; row > 4; row--)
             {
-                for (int col = 1; col < 9; col++)
+                for (int col = 0; col < 8; col++)
                 {
                     if (hiddenBoard[row, col].getIsBlack())
                     {
@@ -60,10 +60,10 @@ namespace Project3_Checkers
             }
         }   //End constructor
 
-
+        //Makes sure the space has a piece and that piece belongs to the right player
         public Boolean validPiece(int row, int col, Boolean isPlayer1)
         {
-            if (hiddenBoard[row + 1, col + 1].hasPiece() && hiddenBoard[row + 1, col + 1].getPiece().getIsPlayerOne() == isPlayer1)
+            if (hiddenBoard[row, col].hasPiece() && hiddenBoard[row, col].getPiece().getIsPlayerOne() == isPlayer1)
             {
                 return true;
             }
@@ -82,18 +82,28 @@ namespace Project3_Checkers
             }
 
             //These 2 else ifs are to prevent the pieces from going backwards
-            else if (isPlayer1 && moveTo.getInternalRow() < moveFrom.getInternalRow())
+            else if (isPlayer1 && moveTo.getRow() < moveFrom.getRow())
             {
                 return false;
             }
 
-            else if (!isPlayer1 && moveTo.getInternalRow() > moveFrom.getInternalRow())
+            else if (!isPlayer1 && moveTo.getRow() > moveFrom.getRow())
             {
                 return false;
             }
 
-            return true;    //This is temprorary to get rid of errors. Method not finished
+            //This would be a valid "slide" move
+            else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 1) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 1))
+            {
+                return true;
+            }
 
+            //TODO: Write the code for jumping a piece
+            
+            return false;   //Temprorary to prevent errors
+
+            //TODO: Write the code for king pieces moving
+            
         }
 
         public void movePiece(SpaceClass moveTo, SpaceClass MoveFrom)

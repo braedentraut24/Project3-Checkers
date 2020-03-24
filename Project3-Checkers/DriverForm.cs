@@ -126,7 +126,8 @@ namespace Project3_Checkers
                     newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
-                    //newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    newCell[row, col].ForeColor = ColorTranslator.FromHtml("#12E551");
                     newCell[row, col].Font = new Font("Arial", 8);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
