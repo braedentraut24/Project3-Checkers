@@ -15,8 +15,8 @@ namespace Project3_Checkers
 
         Button[,] newCell = new Button[8, 8];
         InternalBoardClass internalBoard = new InternalBoardClass();
-        PlayerClass p1;
-        PlayerClass p2;
+        public static PlayerClass p1;
+        public static PlayerClass p2;
 
         /// <summary>
         /// Initializes the form.
@@ -106,7 +106,10 @@ namespace Project3_Checkers
             return validEntries;
         }
 
-
+        /// <summary>
+        /// Draws the buttons that act as spaces and colors 
+        ///     them in a checker pattern.
+        /// </summary>
         private void createTable()
         {
             int ButtonWidth = 60;
@@ -127,7 +130,7 @@ namespace Project3_Checkers
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
                     newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
-                    newCell[row, col].ForeColor = ColorTranslator.FromHtml("#12E551");
+                    newCell[row, col].ForeColor = Color.Aqua;
                     newCell[row, col].Font = new Font("Arial", 8);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
@@ -174,6 +177,9 @@ namespace Project3_Checkers
             this.Controls.Add(lblPlayerIndicator);
         }
 
+        /// <summary>
+        /// STUB
+        /// </summary>
         private void Button_Click(object sender, EventArgs e)
         {
             int rowID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[3]));
@@ -184,8 +190,7 @@ namespace Project3_Checkers
 
         private void refreshBoard()
         {
-            //TODO: Go through the internal board and put the visuals for the pieces in the correct spots.
-            //To be called after each turn
+            
         }
     }
 }

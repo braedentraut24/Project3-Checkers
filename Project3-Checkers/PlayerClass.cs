@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace Project3_Checkers
 {
-    class PlayerClass
+    public class PlayerClass
     {
 
         // START ATTRIBUTES
         private int hiddenNumOfPieces;        // Number of pieces player has remaining on the board
         public string hiddenName;             // Player's Name
-        public char hiddenPieceChar;          // Character to represent the player's pieces on the board
+        public string hiddenSymbol;          // Character to represent the player's pieces on the board
         // END ATTRIBUTES
 
 
@@ -32,11 +32,11 @@ namespace Project3_Checkers
                 return hiddenName;
             }
         }
-        public char pieceChar
+        public string pieceChar
         {
             get
             {
-                return hiddenPieceChar;
+                return hiddenSymbol;
             }
         }
         // END PROPERTIES
@@ -49,17 +49,18 @@ namespace Project3_Checkers
         ///     pieces on the board to 12.
         /// </summary>
         /// <param name="name"> Player's name </param>
-        /// <param name="piece"> Character to represent player's pieces </param>
-        public PlayerClass(string name, char piece)
+        /// <param name="symbol"> Character to represent player's pieces </param>
+        public PlayerClass(string name, string symbol)
         {
             hiddenName = name;
-            hiddenPieceChar = piece;
+            hiddenSymbol = symbol;
             hiddenNumOfPieces = 12;
         }
 
         /// <summary>
-        /// Decrements the amount of pieces the player has by 1
+        /// Decrements the amount of pieces the player has on the board
         /// </summary>
+        /// <param name="showCount"> Make true to display how many pieces are left after running </param>
         public void lostPiece(bool showCount)
         {
             hiddenNumOfPieces--;

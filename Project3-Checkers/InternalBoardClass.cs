@@ -8,8 +8,12 @@ namespace Project3_Checkers
 {
     class InternalBoardClass
     {
-        private SpaceClass[,] hiddenBoard;
+        private SpaceClass[,] hiddenBoard;      // 2D Array representation of the table / board
 
+        /// <summary>
+        /// Parameterless Constructor - Creates an 8x8 board and 
+        ///     properly initializes the pieces attributes.
+        /// </summary>
         public InternalBoardClass()
         {
             this.hiddenBoard = new SpaceClass[8, 8];
@@ -42,7 +46,7 @@ namespace Project3_Checkers
                 {
                     if (hiddenBoard[row,col].getIsBlack())
                     {
-                        hiddenBoard[row, col].setPiece(new PieceClass(true));
+                        hiddenBoard[row, col].setPiece(new PieceClass(DriverForm.p1));
                     }
                 }
             }
@@ -54,13 +58,13 @@ namespace Project3_Checkers
                 {
                     if (hiddenBoard[row, col].getIsBlack())
                     {
-                        hiddenBoard[row, col].setPiece(new PieceClass(false));
+                        hiddenBoard[row, col].setPiece(new PieceClass(DriverForm.p2));
                     }
                 }
             }
         }   //End constructor
 
-        //Makes sure the space has a piece and that piece belongs to the right player
+
         public Boolean validPiece(int row, int col, Boolean isPlayer1)
         {
             if (hiddenBoard[row, col].hasPiece() && hiddenBoard[row, col].getPiece().getIsPlayerOne() == isPlayer1)
@@ -71,6 +75,11 @@ namespace Project3_Checkers
             {
                 return false;
             }
+        }
+
+        public Boolean isValidPiece(int row, int col, char piece)
+        {
+            if(hiddenBoard[row,col].hasPiece() && hiddenBoard[row,col].getPiece().)
         }
 
         public Boolean validMove(SpaceClass moveTo, SpaceClass moveFrom, Boolean isPlayer1)
