@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*
+ * Programmers:     Braeden Trautz + Colin Gilchrist
+ * Year:            Early 2020
+ * Assignment:      Project III - Modified Checkers
+ * Professor:       Frank L Friedman
+ * Class:           CIS 3309 Section 1 - Component Based Software Design
+ * File:            SpaceClass.cs
+ * Description:     The SpaceClass datatype is meant to represent one of the squares
+ *                      that makes up the checker board.  Each SpaceClass object contains
+ *                      it's row and col coordinates as well as the piece that is currently
+ *                      on the space and a boolean for its' color.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +23,7 @@ namespace Project3_Checkers
 
         private int col, row;               // references where on the board the space is
         private PieceClass currentPiece;    // the piece that is on this space
-        private Boolean isBlack;            
+        private Boolean isBlack;            // is this piece black? (actually red)  
 
         /// <summary>
         /// Parameterized constructor to create a space on board

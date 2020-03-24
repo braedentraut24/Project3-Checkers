@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*
+ * Programmers:     Braeden Trautz + Colin Gilchrist
+ * Year:            Early 2020
+ * Assignment:      Project III - Modified Checkers
+ * Professor:       Frank L Friedman
+ * Class:           CIS 3309 Section 1 - Component Based Software Design
+ * File:            DriverForm.cs
+ * Description:     The Driver Form is just that: the form which drives the game.
+ *                      This form allows users to enter their names and choices
+ *                      of any keyboard character to represent their pieces on the board.
+ *                      The form is then cleared and populated with a playable checkers game.
+ * NOTE:            The game of checkers is different than standard rules.  Players move
+ *                      their piece onto another player's piece to capture it, meaning
+ *                      that there are no jumps.
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +32,8 @@ namespace Project3_Checkers
         InternalBoardClass internalBoard = new InternalBoardClass();
         public static PlayerClass p1;
         public static PlayerClass p2;
+        short curPlayer = 0;
+        String curMove;
 
         /// <summary>
         /// Initializes the form.
@@ -46,6 +63,8 @@ namespace Project3_Checkers
                 p2 = new PlayerClass(txtP2Name.Text, txtP2Char.Text);
                 this.Controls.Clear();
                 createTable();
+                curPlayer = 1;
+                curMove = "pick";
             }
         }
 
@@ -178,7 +197,7 @@ namespace Project3_Checkers
         }
 
         /// <summary>
-        /// STUB
+        /// STUB - just shows the index of the button
         /// </summary>
         private void Button_Click(object sender, EventArgs e)
         {
@@ -186,8 +205,20 @@ namespace Project3_Checkers
             int colID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[4]));
 
             MessageBox.Show(((Button)sender).Name.ToString());
+
+            switch (curMove)
+            {
+                case "pick":
+                    break;
+                case "move":
+                    break;
+            }
         }
 
+        /// <summary>
+        /// STUB
+        /// TODO: Redraw the pieces on the board after a player clicks to move
+        /// </summary>
         private void refreshBoard()
         {
             

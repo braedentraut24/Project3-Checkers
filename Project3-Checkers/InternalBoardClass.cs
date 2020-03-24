@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*
+ * Programmers:     Braeden Trautz + Colin Gilchrist
+ * Year:            Early 2020
+ * Assignment:      Project III - Modified Checkers
+ * Professor:       Frank L Friedman
+ * Class:           CIS 3309 Section 1 - Component Based Software Design
+ * File:            InternalBoardClass.cs
+ * Description:     The InternalBoardClass datatype is meant to represent the board or table
+ *                      on which the game is played.  It contains a 2D array of spaces of size
+ *                      8 by 8.  Validates and performs moves of pieces on the board.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,10 +75,16 @@ namespace Project3_Checkers
             }
         }   //End constructor
 
-
-        public Boolean validPiece(int row, int col, Boolean isPlayer1)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="curPlayer"></param>
+        /// <returns></returns>
+        public Boolean isValidPiece(int row, int col, PlayerClass curPlayer)
         {
-            if (hiddenBoard[row, col].hasPiece() && hiddenBoard[row, col].getPiece().getIsPlayerOne() == isPlayer1)
+            if (hiddenBoard[row, col].hasPiece() && hiddenBoard[row, col].getPiece().getPlayer() == curPlayer)
             {
                 return true;
             }
@@ -77,12 +94,15 @@ namespace Project3_Checkers
             }
         }
 
-        public Boolean isValidPiece(int row, int col, char piece)
-        {
-            if(hiddenBoard[row,col].hasPiece() && hiddenBoard[row,col].getPiece().)
-        }
-
-        public Boolean validMove(SpaceClass moveTo, SpaceClass moveFrom, Boolean isPlayer1)
+        /// <summary>
+        /// Determines if where the player clicked is a valid end location 
+        ///     for a movement.
+        /// </summary>
+        /// <param name="moveTo"> Space on board where the player is going to move their piece </param>
+        /// <param name="moveFrom"> Space on board where the player is moving from </param>
+        /// <param name="curPlayer"> The player currently moving their piece </param>
+        /// <returns></returns>
+        public Boolean isValidMove(SpaceClass moveTo, SpaceClass moveFrom, PlayerClass curPlayer)
         {
             //Cant move to a space with a piece on it
             if (moveTo.hasPiece())
@@ -91,12 +111,12 @@ namespace Project3_Checkers
             }
 
             //These 2 else ifs are to prevent the pieces from going backwards
-            else if (isPlayer1 && moveTo.getRow() < moveFrom.getRow())
+            else if (curPlayer == DriverForm.p1 && moveTo.getRow() < moveFrom.getRow())
             {
                 return false;
             }
 
-            else if (!isPlayer1 && moveTo.getRow() > moveFrom.getRow())
+            else if (curPlayer == DriverForm.p2 && moveTo.getRow() > moveFrom.getRow())
             {
                 return false;
             }
@@ -115,9 +135,14 @@ namespace Project3_Checkers
             
         }
 
-        public void movePiece(SpaceClass moveTo, SpaceClass MoveFrom)
+        /// <summary>
+        /// Moves a piece from the given space to the other space
+        /// </summary>
+        /// <param name="moveTo"> Space on board where the player is going to move their piece </param>
+        /// <param name="moveFrom"> Space on board where the player is moving from </param>
+        public void movePiece(SpaceClass moveTo, SpaceClass moveFrom)
         {
-            //TODO
+            //TODO set the location of the piece at moveFrom to moveTo
         }
     }
 }

@@ -1,4 +1,16 @@
-﻿using System;
+﻿/*
+ * Programmers:     Braeden Trautz + Colin Gilchrist
+ * Year:            Early 2020
+ * Assignment:      Project III - Modified Checkers
+ * Professor:       Frank L Friedman
+ * Class:           CIS 3309 Section 1 - Component Based Software Design
+ * File:            PlayerClass.cs
+ * Description:     The PlayerClass datatype is meant to represent a person
+ *                      partaking in the game of checkers.  It stores their name,
+ *                      the symbol used to denote their piece, and how many pieces
+ *                      they have still remaining on the board.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +25,7 @@ namespace Project3_Checkers
         // START ATTRIBUTES
         private int hiddenNumOfPieces;        // Number of pieces player has remaining on the board
         public string hiddenName;             // Player's Name
-        public string hiddenSymbol;          // Character to represent the player's pieces on the board
+        public string hiddenSymbol;           // Character to represent the player's pieces on the board
         // END ATTRIBUTES
 
 

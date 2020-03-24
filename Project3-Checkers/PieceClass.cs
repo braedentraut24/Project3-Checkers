@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*
+ * Programmers:     Braeden Trautz + Colin Gilchrist
+ * Year:            Early 2020
+ * Assignment:      Project III - Modified Checkers
+ * Professor:       Frank L Friedman
+ * Class:           CIS 3309 Section 1 - Component Based Software Design
+ * File:            PieceClass.cs
+ * Description:     The PieceClass datatype is meant to represent a "piece" or chip on the checker
+ *                      board which is moved by the player that owns it.
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
