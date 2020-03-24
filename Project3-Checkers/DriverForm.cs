@@ -42,8 +42,8 @@ namespace Project3_Checkers
         {
             if (validateEntries() == true)
             {
-                p1 = new PlayerClass(txtP1Name.Text, Convert.ToChar(txtP1Char.Text));
-                p2 = new PlayerClass(txtP2Name.Text, Convert.ToChar(txtP2Char.Text));
+                p1 = new PlayerClass(txtP1Name.Text, txtP1Char.Text);
+                p2 = new PlayerClass(txtP2Name.Text, txtP2Char.Text);
                 this.Controls.Clear();
                 createTable();
             }
