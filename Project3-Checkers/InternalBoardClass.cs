@@ -205,7 +205,7 @@ namespace Project3_Checkers
         public void movePiece(SpaceClass moveTo, SpaceClass moveFrom)
         {
             moveTo.setPiece(moveFrom.getPiece());
-            moveFrom.setPiece(null);
+            moveFrom.pieceNull();
 
             //Takes away from the correct player's pieceCount if a capture happened
             if (capturedSpace != null)
