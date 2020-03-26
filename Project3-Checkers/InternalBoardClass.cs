@@ -210,7 +210,7 @@ namespace Project3_Checkers
             //Takes away from the correct player's pieceCount if a capture happened
             if (capturedSpace != null)
             {
-                capturedSpace.setPiece(null);
+                capturedSpace.pieceNull();
                 if (curPlayer == DriverForm.p1)
                 {
                     DriverForm.p2.lostPiece(true);
