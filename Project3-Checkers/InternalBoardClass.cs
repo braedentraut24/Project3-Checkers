@@ -92,6 +92,11 @@ namespace Project3_Checkers
             }
         }
 
+        public SpaceClass[,] getHiddenBoard()
+        {
+            return hiddenBoard;
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -29,9 +29,10 @@ namespace Project3_Checkers
     {
 
         Button[,] newCell = new Button[8, 8];
-        InternalBoardClass internalBoard = new InternalBoardClass();
+        
         public static PlayerClass p1;
         public static PlayerClass p2;
+        InternalBoardClass internalBoard;
         short curPlayer = 0;
         String curMove;
 
@@ -61,10 +62,12 @@ namespace Project3_Checkers
             {
                 p1 = new PlayerClass(txtP1Name.Text, txtP1Char.Text);
                 p2 = new PlayerClass(txtP2Name.Text, txtP2Char.Text);
+                internalBoard = new InternalBoardClass();
                 this.Controls.Clear();
                 createTable();
                 curPlayer = 1;
                 curMove = "pick";
+                refreshBoard();
             }
         }
 
@@ -148,8 +151,8 @@ namespace Project3_Checkers
                     newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
-                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
-                    newCell[row, col].ForeColor = Color.Aqua;
+                    //newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    //newCell[row, col].ForeColor = Color.Aqua;
                     newCell[row, col].Font = new Font("Arial", 8);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
@@ -221,7 +224,24 @@ namespace Project3_Checkers
         /// </summary>
         private void refreshBoard()
         {
-            
+            for (int row = 0; row < 8; row++)
+            {
+                for (int col = 0; col < 8; col++)
+                {
+                    if (internalBoard.getHiddenBoard()[row, col].hasPiece())
+                    {
+                        if(internalBoard.getHiddenBoard()[row, col].getPiece().getPlayer() == p1)
+                        {
+                            newCell[row, col].Text = p1.hiddenSymbol;
+                        }
+                        else if (internalBoard.getHiddenBoard()[row, col].getPiece().getPlayer() == p2)
+                        {
+                            newCell[row, col].Text = p2.hiddenSymbol;
+                        }
+                        newCell[row, col].ForeColor = Color.Aqua;
+                    }
+                }
+            }
         }
     }
 }
