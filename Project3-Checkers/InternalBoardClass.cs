@@ -8,6 +8,7 @@
  * Description:     The InternalBoardClass datatype is meant to represent the board or table
  *                      on which the game is played.  It contains a 2D array of spaces of size
  *                      8 by 8.  Validates and performs moves of pieces on the board.
+
  */
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,14 @@ namespace Project3_Checkers
         private SpaceClass capturedSpace;   //reference to a space with a piece that got captured during a move. is null if no capturing happened
         private PlayerClass curPlayer;      //Reference to the player whos turn it is
         private SpaceClass jumpedSpace;
+
+        public PlayerClass player
+        {
+            get
+            {
+                return curPlayer;
+            }
+        }
 
         /// <summary>
         /// Parameterless Constructor - Creates an 8x8 board and 
@@ -99,7 +108,7 @@ namespace Project3_Checkers
         }
 
         /// <summary>
-        /// 
+        /// Determines if the current piece
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -203,10 +212,11 @@ namespace Project3_Checkers
         /// </summary>
         /// <param name="moveTo"> Space on board where the player is going to move their piece </param>
         /// <param name="moveFrom"> Space on board where the player is moving from </param>
-        public void movePiece(SpaceClass moveTo, SpaceClass moveFrom)
+        public void movePiece(SpaceClass moveTo, SpaceClass moveFrom, ref bool capturedPiece)
         {
             moveTo.setPiece(moveFrom.getPiece());
             moveFrom.pieceNull();
+            capturedPiece = false;
 
             //Takes away from the correct player's pieceCount if a capture happened
             if (capturedSpace != null)
@@ -215,10 +225,12 @@ namespace Project3_Checkers
                 if (curPlayer == DriverForm.p1)
                 {
                     DriverForm.p2.lostPiece(true);
+                    capturedPiece = true;
                 }
                 else if (curPlayer == DriverForm.p2)
                 {
                     DriverForm.p1.lostPiece(true);
+                    capturedPiece = true;
                 }
             }
         }

@@ -9,9 +9,9 @@
  *                      This form allows users to enter their names and choices
  *                      of any keyboard character to represent their pieces on the board.
  *                      The form is then cleared and populated with a playable checkers game.
- * NOTE:            The game of checkers is different than standard rules.  Players move
- *                      their piece onto another player's piece to capture it, meaning
- *                      that there are no jumps.
+ * RULE CHANGES:    You can move any piece anywhere after you perform a jump, not just the same
+ *                      piece making a jump again.  Also, you don't have to perform a jump
+ *                      if you do not want to.
  */
 using System;
 using System.Collections.Generic;
@@ -29,15 +29,14 @@ namespace Project3_Checkers
     {
 
         Button[,] newCell = new Button[8, 8];
-        
         public static PlayerClass p1;
         public static PlayerClass p2;
         InternalBoardClass internalBoard;
-        short curPlayer = 0;
         String curMove;
         SpaceClass moveTo;
         SpaceClass moveFrom;
-
+        Label lblPlayerIndicator = new Label();
+        
         /// <summary>
         /// Initializes the form.
         /// </summary>
@@ -67,7 +66,6 @@ namespace Project3_Checkers
                 internalBoard = new InternalBoardClass();
                 this.Controls.Clear();
                 createTable();
-                curPlayer = 1;
                 curMove = "pick";
                 refreshBoard();
             }
@@ -136,6 +134,13 @@ namespace Project3_Checkers
         /// </summary>
         private void createTable()
         {
+            this.Controls.Add(lblPlayerIndicator);
+            lblPlayerIndicator.Location = new Point(0, 0);
+            lblPlayerIndicator.Font = new Font("Arial", 12);
+            lblPlayerIndicator.Visible = true;
+            lblPlayerIndicator.Text = p1.name;
+            lblPlayerIndicator.AutoSize = true;
+
             int ButtonWidth = 60;
             int ButtonHeight = 60;
             int Distance = 20;
@@ -155,7 +160,7 @@ namespace Project3_Checkers
                     newCell[row, col].Height = ButtonHeight;
                     newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
                     newCell[row, col].ForeColor = Color.Aqua;
-                    newCell[row, col].Font = new Font("Arial", 8);
+                    newCell[row, col].Font = new Font("Consolas", 12, FontStyle.Bold);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
                     this.Controls.Add(newCell[row, col]);
@@ -191,14 +196,6 @@ namespace Project3_Checkers
                     }
                 }
             }
-
-            // Draw label that will indicate which player is up for their turn.
-            Label lblPlayerIndicator = new Label();
-            lblPlayerIndicator.AutoSize = true;
-            lblPlayerIndicator.Font = new Font("Arial", 12);
-            lblPlayerIndicator.Location = new Point(0, 0);
-            lblPlayerIndicator.Text = "Current Player: " + p1.name;
-            this.Controls.Add(lblPlayerIndicator);
         }
 
         /// <summary>
@@ -208,8 +205,7 @@ namespace Project3_Checkers
         {
             int rowID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[3]));
             int colID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[4]));
-
-            //MessageBox.Show(((Button)sender).Name.ToString());
+            bool capturedPiece = false;
 
             switch (curMove)
             {
@@ -226,13 +222,23 @@ namespace Project3_Checkers
                     break;
                 case "move":
                     moveTo = internalBoard.getHiddenBoard()[rowID, colID];
+
+                    if(moveTo == moveFrom)
+                    {
+                        curMove = "pick";
+                        MessageBox.Show("Piece unchosen, choose another.");
+                        return;
+                    }
+
                     if (internalBoard.isValidMove(moveTo, moveFrom))
                     {
-                        internalBoard.movePiece(moveTo, moveFrom);
-                        internalBoard.switchCurPlayer();
-                        switchPlayer();
-                        refreshBoard();
+                        internalBoard.movePiece(moveTo, moveFrom,ref capturedPiece);
+                        if (!capturedPiece)
+                        {
+                            internalBoard.switchCurPlayer();
+                        }
                         curMove = "pick";
+                        refreshBoard();
                     }
                     else
                     {
@@ -270,18 +276,8 @@ namespace Project3_Checkers
                     }
                 }
             }
+            lblPlayerIndicator.Text = "Current Player: " + internalBoard.player.name;
         }
 
-        private void switchPlayer()
-        {
-            if (curPlayer == 1)
-            {
-                curPlayer = 2;
-            }
-            else
-            {
-                curPlayer = 1;
-            }
-        }
     }
 }
