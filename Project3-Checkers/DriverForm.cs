@@ -27,8 +27,8 @@ namespace Project3_Checkers
 {
     public partial class DriverForm : Form
     {
-
-        Button[,] newCell = new Button[8, 8];
+        private const int BoardSize = 8;
+        Button[,] newCell = new Button[BoardSize, BoardSize];
         public static PlayerClass p1;
         public static PlayerClass p2;
         InternalBoardClass internalBoard;
@@ -149,9 +149,9 @@ namespace Project3_Checkers
             this.Size = new Size(550, 575);
 
             // Draw Buttons on screen as well as name and create EventHandler
-            for (int row = 0; row < 8; row++)
+            for (int row = 0; row < BoardSize; row++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < BoardSize; col++)
                 {
                     newCell[row, col] = new Button();
                     newCell[row, col].Top = start_x + (row * ButtonHeight + Distance);
@@ -254,9 +254,9 @@ namespace Project3_Checkers
         /// </summary>
         private void refreshBoard()
         {
-            for (int row = 0; row < 8; row++)
+            for (int row = 0; row < BoardSize; row++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < BoardSize; col++)
                 {
                     if (internalBoard.getHiddenBoard()[row, col].hasPiece())
                     {

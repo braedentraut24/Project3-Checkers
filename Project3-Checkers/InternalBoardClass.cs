@@ -20,6 +20,7 @@ namespace Project3_Checkers
 {
     class InternalBoardClass
     {
+        private const int BoardSize = 8;
         private SpaceClass[,] hiddenBoard;      // 2D Array representation of the table / board
         private SpaceClass capturedSpace;   //reference to a space with a piece that got captured during a move. is null if no capturing happened
         private PlayerClass curPlayer;      //Reference to the player whos turn it is
@@ -43,9 +44,9 @@ namespace Project3_Checkers
             this.curPlayer = DriverForm.p1;
 
             //Initializing spaces on the board
-            for (int row = 0; row < 8; row++)
+            for (int row = 0; row < BoardSize; row++)
             {
-                for (int col = 0; col < 8; col++)
+                for (int col = 0; col < BoardSize; col++)
                 {
                     hiddenBoard[row, col] = new SpaceClass(row, col);
 
