@@ -35,6 +35,8 @@ namespace Project3_Checkers
         InternalBoardClass internalBoard;
         short curPlayer = 0;
         String curMove;
+        SpaceClass moveTo;
+        SpaceClass moveFrom;
 
         /// <summary>
         /// Initializes the form.
@@ -151,8 +153,8 @@ namespace Project3_Checkers
                     newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
-                    //newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
-                    //newCell[row, col].ForeColor = Color.Aqua;
+                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    newCell[row, col].ForeColor = Color.Aqua;
                     newCell[row, col].Font = new Font("Arial", 8);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
@@ -207,13 +209,35 @@ namespace Project3_Checkers
             int rowID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[3]));
             int colID = Convert.ToInt32(Convert.ToString(((Button)sender).Name[4]));
 
-            MessageBox.Show(((Button)sender).Name.ToString());
+            //MessageBox.Show(((Button)sender).Name.ToString());
 
             switch (curMove)
             {
                 case "pick":
+                    if (internalBoard.isValidPiece(rowID, colID))
+                    {
+                        moveFrom = internalBoard.getHiddenBoard()[rowID, colID];
+                        curMove = "move";
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no piece on that space or it is not your piece");
+                    }
                     break;
                 case "move":
+                    moveTo = internalBoard.getHiddenBoard()[rowID, colID];
+                    if (internalBoard.isValidMove(moveTo, moveFrom))
+                    {
+                        internalBoard.movePiece(moveTo, moveFrom);
+                        internalBoard.switchCurPlayer();
+                        switchPlayer();
+                        refreshBoard();
+                        curMove = "pick";
+                    }
+                    else
+                    {
+                        MessageBox.Show("You cannot move your piece there");
+                    }
                     break;
             }
         }
@@ -240,7 +264,23 @@ namespace Project3_Checkers
                         }
                         newCell[row, col].ForeColor = Color.Aqua;
                     }
+                    else
+                    {
+                        newCell[row, col].Text = "";
+                    }
                 }
+            }
+        }
+
+        private void switchPlayer()
+        {
+            if (curPlayer == 1)
+            {
+                curPlayer = 2;
+            }
+            else
+            {
+                curPlayer = 1;
             }
         }
     }

@@ -22,6 +22,7 @@ namespace Project3_Checkers
         private SpaceClass[,] hiddenBoard;      // 2D Array representation of the table / board
         private SpaceClass capturedSpace;   //reference to a space with a piece that got captured during a move. is null if no capturing happened
         private PlayerClass curPlayer;      //Reference to the player whos turn it is
+        private SpaceClass jumpedSpace;
 
         /// <summary>
         /// Parameterless Constructor - Creates an 8x8 board and 
@@ -127,6 +128,7 @@ namespace Project3_Checkers
         public Boolean isValidMove(SpaceClass moveTo, SpaceClass moveFrom)
         {
             capturedSpace = null;
+            jumpedSpace = null;
             //Cant move to a space with a piece on it
             if (moveTo.hasPiece())
             {
@@ -155,46 +157,40 @@ namespace Project3_Checkers
             {
                 if (curPlayer == DriverForm.p1)
                 {
-                    if (moveFrom.getCol() < moveTo.getCol() && hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1].hasPiece())
+                    if (moveTo.getCol() < moveFrom.getCol())
                     {
-                        if (hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1].getPiece().getPlayer() == DriverForm.p2)
-                        {
-                            capturedSpace = hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() - 1];
-                            return true;
-                        }
+                        jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() + 1];
+                    }
+                    else if (moveTo.getCol() > moveFrom.getCol())
+                    {
+                        jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() - 1];
                     }
 
-                    else if (moveFrom.getCol() > moveTo.getCol() && hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1].hasPiece())
+                    if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p2)
                     {
-                        if (hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1].getPiece().getPlayer() == DriverForm.p2)
-                        {
-                            capturedSpace = hiddenBoard[moveFrom.getRow() - 1, moveFrom.getCol() + 1];
-                            return true;
-                        }
+                        capturedSpace = jumpedSpace;
+                        return true;
                     }
                 }
 
                 else if (curPlayer == DriverForm.p2)
                 {
-                     if (moveFrom.getCol() < moveTo.getCol() && hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1].hasPiece())
+                    if (moveTo.getCol() < moveFrom.getCol())
                     {
-                        if (hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1].getPiece().getPlayer() == DriverForm.p1)
-                        {
-                            capturedSpace = hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() - 1];
-                            return true;
-                        }
+                        jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() + 1];
+                    }
+                    else if (moveTo.getCol() > moveFrom.getCol())
+                    {
+                        jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() - 1];
                     }
 
-                    else if (moveFrom.getCol() > moveTo.getCol() && hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1].hasPiece())
+                    if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p1)
                     {
-                        if (hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1].getPiece().getPlayer() == DriverForm.p1)
-                        {
-                            capturedSpace = hiddenBoard[moveFrom.getRow() + 1, moveFrom.getCol() + 1];
-                            return true;
-                        }
-                    }   //End jump move code
+                        capturedSpace = jumpedSpace;
+                        return true;
+                    }
                 }
-            }
+            }   //End jump move
 
             return false;
 
