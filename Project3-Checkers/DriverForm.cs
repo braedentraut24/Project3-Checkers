@@ -136,7 +136,7 @@ namespace Project3_Checkers
         {
             this.Controls.Add(lblPlayerIndicator);
             lblPlayerIndicator.Location = new Point(0, 0);
-            lblPlayerIndicator.Font = new Font("Arial", 12);
+            lblPlayerIndicator.Font = new Font("Arial", 14);
             lblPlayerIndicator.Visible = true;
             lblPlayerIndicator.Text = p1.name;
             lblPlayerIndicator.AutoSize = true;
@@ -160,7 +160,7 @@ namespace Project3_Checkers
                     newCell[row, col].Height = ButtonHeight;
                     newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
                     newCell[row, col].ForeColor = Color.Aqua;
-                    newCell[row, col].Font = new Font("Consolas", 12, FontStyle.Bold);
+                    newCell[row, col].Font = new Font("Consolas", 25, FontStyle.Bold);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
                     this.Controls.Add(newCell[row, col]);
@@ -176,22 +176,22 @@ namespace Project3_Checkers
                     {
                         if (col % 2 == 0)
                         {
-                            newCell[row, col].BackColor = Color.Red;
+                            newCell[row, col].BackColor = Color.White;
                         }
                         else
                         {
-                            newCell[row, col].BackColor = Color.Black;
+                            newCell[row, col].BackColor = Color.BurlyWood;
                         }
                     }
                     else
                     {
                         if (col % 2 == 0)
                         {
-                            newCell[row, col].BackColor = Color.Black;
+                            newCell[row, col].BackColor = Color.BurlyWood;
                         }
                         else
                         {
-                            newCell[row, col].BackColor = Color.Red;
+                            newCell[row, col].BackColor = Color.White;
                         }
                     }
                 }
@@ -214,6 +214,7 @@ namespace Project3_Checkers
                     {
                         moveFrom = internalBoard.getHiddenBoard()[rowID, colID];
                         curMove = "move";
+                        newCell[rowID, colID].ForeColor = Color.Red;
                     }
                     else
                     {
@@ -227,6 +228,7 @@ namespace Project3_Checkers
                     {
                         curMove = "pick";
                         MessageBox.Show("Piece unchosen, choose another.");
+                        newCell[rowID, colID].ForeColor = Color.Black;
                         return;
                     }
 
@@ -268,7 +270,7 @@ namespace Project3_Checkers
                         {
                             newCell[row, col].Text = p2.hiddenSymbol;
                         }
-                        newCell[row, col].ForeColor = Color.Aqua;
+                        newCell[row, col].ForeColor = Color.Black;
                     }
                     else
                     {

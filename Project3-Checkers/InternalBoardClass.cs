@@ -224,12 +224,12 @@ namespace Project3_Checkers
                 capturedSpace.pieceNull();
                 if (curPlayer == DriverForm.p1)
                 {
-                    DriverForm.p2.lostPiece(true);
+                    DriverForm.p2.lostPiece(false);
                     capturedPiece = true;
                 }
                 else if (curPlayer == DriverForm.p2)
                 {
-                    DriverForm.p1.lostPiece(true);
+                    DriverForm.p1.lostPiece(false);
                     capturedPiece = true;
                 }
             }
