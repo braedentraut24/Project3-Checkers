@@ -176,7 +176,7 @@ namespace Project3_Checkers
                     {
                         if (col % 2 == 0)
                         {
-                            newCell[row, col].BackColor = Color.White;
+                            newCell[row, col].BackColor = Color.Gray;
                         }
                         else
                         {
@@ -191,7 +191,7 @@ namespace Project3_Checkers
                         }
                         else
                         {
-                            newCell[row, col].BackColor = Color.White;
+                            newCell[row, col].BackColor = Color.Gray;
                         }
                     }
                 }
@@ -199,7 +199,11 @@ namespace Project3_Checkers
         }
 
         /// <summary>
-        /// STUB - just shows the index of the button
+        /// When a player chooses a piece, the piece is validated as theirs and the next action
+        ///     is set to move.  Then, when they click another space, the space is validated
+        ///     as a proper move.  If the player jumped a piece, the opponent's piece is removed
+        ///     from the board and they go again.  Otherwise, the active player swaps and their
+        ///     action is set to pick.
         /// </summary>
         private void Button_Click(object sender, EventArgs e)
         {
@@ -251,8 +255,9 @@ namespace Project3_Checkers
         }
 
         /// <summary>
-        /// STUB
-        /// TODO: Redraw the pieces on the board after a player clicks to move
+        /// Redraws the board and the pieces that are inside of the spaces.
+        /// Also labels the top of the game with the appropriate current
+        /// player.
         /// </summary>
         private void refreshBoard()
         {

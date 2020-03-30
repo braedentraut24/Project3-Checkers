@@ -194,7 +194,8 @@
             // DriverForm
             // 
             this.AcceptButton = this.btnPlay;
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(782, 425);
             this.Controls.Add(this.btnExit);
