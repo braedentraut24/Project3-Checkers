@@ -158,9 +158,9 @@ namespace Project3_Checkers
                     newCell[row, col].Left = start_y + (col * ButtonWidth + Distance);
                     newCell[row, col].Width = ButtonWidth;
                     newCell[row, col].Height = ButtonHeight;
-                    newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
+                    //newCell[row, col].Text = "r: " + row.ToString() + " c: " + col.ToString();
                     newCell[row, col].ForeColor = Color.Aqua;
-                    newCell[row, col].Font = new Font("Consolas", 25, FontStyle.Bold);
+                    newCell[row, col].Font = new Font("Consolas", 22, FontStyle.Bold);
                     newCell[row, col].Name = "btn" + row.ToString() + col.ToString();
                     newCell[row, col].Click += new EventHandler(Button_Click);
                     this.Controls.Add(newCell[row, col]);
@@ -261,6 +261,7 @@ namespace Project3_Checkers
         /// </summary>
         private void refreshBoard()
         {
+            internalBoard.checkForKings();
             for (int row = 0; row < BoardSize; row++)
             {
                 for (int col = 0; col < BoardSize; col++)
@@ -276,6 +277,11 @@ namespace Project3_Checkers
                             newCell[row, col].Text = p2.hiddenSymbol;
                         }
                         newCell[row, col].ForeColor = Color.Black;
+
+                        if (internalBoard.getHiddenBoard()[row, col].getPiece().getIsKing())
+                        {
+                            newCell[row, col].Text += "*";
+                        }
                     }
                     else
                     {

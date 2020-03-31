@@ -65,11 +65,11 @@ namespace Project3_Checkers
             }
 
             //Initializing the starting pieces for player 1
-            for(int row = 0; row < 3; row++)
+            for (int row = 0; row < 3; row++)
             {
                 for (int col = 0; col < 8; col++)
                 {
-                    if (hiddenBoard[row,col].getIsBlack())
+                    if (hiddenBoard[row, col].getIsBlack())
                     {
                         hiddenBoard[row, col].setPiece(new PieceClass(DriverForm.p1));
                     }
@@ -139,73 +139,124 @@ namespace Project3_Checkers
         {
             capturedSpace = null;
             jumpedSpace = null;
-            //Cant move to a space with a piece on it
-            if (moveTo.hasPiece())
+
+            if (moveTo.hasPiece())  //Cant move to a space with a piece on it
             {
                 return false;
             }
 
-            //These 2 else ifs are to prevent the pieces from going backwards
-            else if (curPlayer == DriverForm.p1 && moveTo.getRow() < moveFrom.getRow())
+            else if (!moveFrom.getPiece().getIsKing()) //Non-king move
             {
-                return false;
-            }
-
-            else if (curPlayer == DriverForm.p2 && moveTo.getRow() > moveFrom.getRow())
-            {
-                return false;
-            }
-
-            //This would be a valid "slide" move
-            else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 1) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 1))
-            {
-                return true;
-            }
-
-            //This would be a valid "jump" move
-            else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 2) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 2))
-            {
-                if (curPlayer == DriverForm.p1)
+                //These 2 else ifs are to prevent the pieces from going backwards
+                if (curPlayer == DriverForm.p1 && moveTo.getRow() < moveFrom.getRow())
                 {
-                    if (moveTo.getCol() < moveFrom.getCol())
+                    return false;
+                }
+
+                else if (curPlayer == DriverForm.p2 && moveTo.getRow() > moveFrom.getRow())
+                {
+                    return false;
+                }
+
+                //This would be a valid "slide" move
+                else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 1) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 1))
+                {
+                    return true;
+                }
+
+                //This would be a valid "jump" move
+                else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 2) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 2))
+                {
+                    if (curPlayer == DriverForm.p1)
                     {
-                        jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() + 1];
+                        if (moveTo.getCol() < moveFrom.getCol())
+                        {
+                            jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() + 1];
+                        }
+                        else if (moveTo.getCol() > moveFrom.getCol())
+                        {
+                            jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() - 1];
+                        }
+
+                        if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p2)
+                        {
+                            capturedSpace = jumpedSpace;
+                            return true;
+                        }
                     }
-                    else if (moveTo.getCol() > moveFrom.getCol())
+
+                    else if (curPlayer == DriverForm.p2)
+                    {
+                        if (moveTo.getCol() < moveFrom.getCol())
+                        {
+                            jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() + 1];
+                        }
+                        else if (moveTo.getCol() > moveFrom.getCol())
+                        {
+                            jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() - 1];
+                        }
+
+                        if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p1)
+                        {
+                            capturedSpace = jumpedSpace;
+                            return true;
+                        }
+                    }
+                }   //End jump move
+            }   //End non-king move
+
+            else if (moveFrom.getPiece().getIsKing()) //king move
+            {
+                //Slide move
+                if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 1) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 1))
+                {
+                    return true;
+                }
+
+                //Jump move
+                else if ((Math.Abs(moveTo.getRow() - moveFrom.getRow()) == 2) && (Math.Abs(moveTo.getCol() - moveFrom.getCol()) == 2))
+                {
+                    if (moveTo.getCol() < moveFrom.getCol() && moveTo.getRow() < moveFrom.getRow())
+                    {
+                        jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() + 1];
+                    }
+                    else if (moveTo.getCol() > moveFrom.getCol() && moveTo.getRow() > moveFrom.getRow())
                     {
                         jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() - 1];
                     }
 
-                    if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p2)
-                    {
-                        capturedSpace = jumpedSpace;
-                        return true;
-                    }
-                }
-
-                else if (curPlayer == DriverForm.p2)
-                {
-                    if (moveTo.getCol() < moveFrom.getCol())
-                    {
-                        jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() + 1];
-                    }
-                    else if (moveTo.getCol() > moveFrom.getCol())
+                    else if (moveTo.getCol() > moveFrom.getCol() && moveTo.getRow() < moveFrom.getRow())
                     {
                         jumpedSpace = hiddenBoard[moveTo.getRow() + 1, moveTo.getCol() - 1];
                     }
 
-                    if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p1)
+                    else if (moveTo.getCol() < moveFrom.getCol() && moveTo.getRow() > moveFrom.getRow())
                     {
-                        capturedSpace = jumpedSpace;
-                        return true;
+                        jumpedSpace = hiddenBoard[moveTo.getRow() - 1, moveTo.getCol() + 1];
                     }
-                }
-            }   //End jump move
+
+                    if (curPlayer == DriverForm.p1)
+                    {
+                        if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p2)
+                        {
+                            capturedSpace = jumpedSpace;
+                            return true;
+                        }
+                    }
+
+                    else if (curPlayer == DriverForm.p2)
+                    {
+                        if (jumpedSpace.hasPiece() && jumpedSpace.getPiece().getPlayer() == DriverForm.p1)
+                        {
+                            capturedSpace = jumpedSpace;
+                            return true;
+                        }
+                    }
+                }   //End jump move
+
+            }   //End king move
 
             return false;
-
-            //TODO: Write the code for king pieces moving
-            
         }
 
         /// <summary>
@@ -232,6 +283,28 @@ namespace Project3_Checkers
                 {
                     DriverForm.p1.lostPiece(false);
                     capturedPiece = true;
+                }
+            }
+        }
+
+        public void checkForKings()
+        {
+            for (int col = 0; col < BoardSize; col++)
+            {
+                if (hiddenBoard[0, col].hasPiece())
+                {
+                    if (hiddenBoard[0, col].getPiece().getPlayer() == DriverForm.p2)
+                    {
+                        hiddenBoard[0, col].getPiece().makeKing();
+                    }
+                }
+
+                if (hiddenBoard[7, col].hasPiece())
+                {
+                    if (hiddenBoard[7, col].getPiece().getPlayer() == DriverForm.p1)
+                    {
+                        hiddenBoard[7, col].getPiece().makeKing();
+                    }
                 }
             }
         }
