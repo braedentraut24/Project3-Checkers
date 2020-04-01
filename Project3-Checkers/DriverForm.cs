@@ -289,7 +289,23 @@ namespace Project3_Checkers
                     }
                 }
             }
+            bool gameOver = false;
             lblPlayerIndicator.Text = "Current Player: " + internalBoard.player.name;
+            if (p1.numPieces == 0)
+            {
+                MessageBox.Show(p2.name + " wins the game!  You win bragging rights, but nothing else.", "Game Over!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gameOver = true;
+            }
+            if (p2.numPieces == 0)
+            {
+                MessageBox.Show(p1.name + " wins the game!  You win bragging rights, but nothing else.", "Game Over!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                gameOver = true;
+            }
+
+            if (gameOver)
+            {
+                this.Close();
+            }
         }
 
     }
